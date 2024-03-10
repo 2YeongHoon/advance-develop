@@ -1,0 +1,31 @@
+####################################################################################
+#                                      SERVER                                      #
+####################################################################################
+server:
+  port: 8080
+
+####################################################################################
+#                                      SPRING                                      #
+####################################################################################
+spring:
+  config:
+    activate:
+      on-profile: local
+  jpa:
+    properties:
+      hibernate:
+        hbm2ddl:
+          # create | create-drop | none | update | validate
+          auto: update
+
+####################################################################################
+#                                  CUSTOM                                          #
+####################################################################################
+custom:
+  datasource:
+    url: "jdbc:mysql://localhost:3306/"
+    url-option: "?serverTimezone=UTC&useLegacyDatetimeCode=false&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true"
+    schema: "TEST"
+    schema-prefix: "TEST_"
+    username: "TEST"
+    password: "test1234@"
