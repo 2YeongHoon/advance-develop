@@ -1,0 +1,37 @@
+####################################################################################
+#                                      SPRING                                      #
+####################################################################################
+spring:
+  profiles:
+    active: local
+  jpa:
+    open-in-view: false
+    defer-datasource-initialization: true
+    hibernate:
+      naming:
+        # snake case -> camel case
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    dialect: org.hibernate.dialect.MySQL8Dialect
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        enable_lazy_load_no_trans: true
+        order_inserts: true
+        order_updates: true
+        default_batch_fetch_size: 100
+        # batch insert size
+        jdbc:
+          batch_size: 1000
+####################################################################################
+#                                      CUSTOM                                      #
+####################################################################################
+custom:
+  datasource:
+    tenancy-ids:
+      - "00001"
+      - "00002"
+      - "00003"
