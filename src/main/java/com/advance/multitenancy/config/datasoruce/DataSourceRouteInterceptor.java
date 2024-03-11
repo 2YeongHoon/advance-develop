@@ -15,7 +15,8 @@ public class DataSourceRouteInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
 
-        DataSourceContextHolder.set("00002");
+        String target = request.getParameter("id");
+        DataSourceContextHolder.set(target);
         return true;
     }
 
