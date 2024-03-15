@@ -35,3 +35,7 @@ custom:
       - "00001"
       - "00002"
       - "00003"
+  hikari:
+    connection-timeout: 30000
+    max-lifetime: 30000
+    maximum-pool-size: 4
