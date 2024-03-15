@@ -1,5 +1,7 @@
 package com.advance.multitenancy.config.datasoruce;
 
+import com.advance.multitenancy.config.hikari.HikariProperties;
+import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import jakarta.persistence.EntityManagerFactory;
 import java.util.HashMap;
@@ -8,7 +10,6 @@ import javax.sql.DataSource;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
-import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -29,6 +30,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class DataSourceConfig {
 
     private final CustomDatasourceProperties properties;
+    private final HikariProperties hikariProperties;
     private final JpaProperties jpaProperties;
 
     @Bean
@@ -84,13 +86,13 @@ public class DataSourceConfig {
         Map<Object, Object> dataSources = new HashMap<>();
 
         properties.getTargets()
-            .forEach(tds ->
-                dataSources.put(
-                    tds.getName(),
-                    createDataSource(
-                        getUrl(tds.getSchema()),
-                        tds.getUsername(),
-                        tds.getPassword())));
+                .forEach(tds ->
+                        dataSources.put(
+                                tds.getName(),
+                                createDataSource(
+                                        getUrl(tds.getSchema()),
+                                        tds.getUsername(),
+                                        tds.getPassword())));
 
         return dataSources;
     }
@@ -102,9 +104,9 @@ public class DataSourceConfig {
      */
     private Object getDefaultTargetDataSource() {
         return createDataSource(
-            getUrl(properties.getSchema()),
-            properties.getUsername(),
-            properties.getPassword());
+                getUrl(properties.getSchema()),
+                properties.getUsername(),
+                properties.getPassword());
     }
 
     /**
@@ -116,12 +118,16 @@ public class DataSourceConfig {
      * @return 데이터소스
      */
     private DataSource createDataSource(String url, String username, String password) {
-        return DataSourceBuilder.create()
-            .type(HikariDataSource.class)
-            .url(url)
-            .username(username)
-            .password(password)
-            .build();
+        HikariConfig config = new HikariConfig();
+
+        config.setJdbcUrl(url);
+        config.setUsername(username);
+        config.setPassword(password);
+        config.setMaximumPoolSize(hikariProperties.getMaximumPoolSize());
+        config.setMaxLifetime(hikariProperties.getMaxLifetime());
+        config.setConnectionTimeout(hikariProperties.getConnectionTimeout());
+
+        return new HikariDataSource(config);
     }
 
     /**
