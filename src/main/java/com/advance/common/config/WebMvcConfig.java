@@ -1,6 +1,6 @@
 package com.advance.common.config;
 
-import com.advance.multitenancy.config.datasoruce.DataSourceRouteInterceptor;
+import com.advance.multitenancy.config.datasoruce.interceptor.DataSourceRouteInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
