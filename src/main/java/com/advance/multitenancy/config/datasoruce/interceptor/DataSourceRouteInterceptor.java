@@ -1,4 +1,4 @@
-package com.advance.multitenancy.config.datasoruce;
+package com.advance.multitenancy.config.datasoruce.interceptor;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -15,8 +15,9 @@ public class DataSourceRouteInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
 
-        String target = request.getParameter("id");
-        DataSourceContextHolder.set(target);
+        // 기본스키마 적용
+//        String target = request.getParameter("id");
+//        DataSourceContextHolder.set(target);
         return true;
     }
 
