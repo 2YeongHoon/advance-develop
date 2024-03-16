@@ -17,6 +17,8 @@ spring:
         hbm2ddl:
           # create | create-drop | none | update | validate
           auto: update
+  encrypt:
+    key: "VALUE"
 
 ####################################################################################
 #                                  CUSTOM                                          #
