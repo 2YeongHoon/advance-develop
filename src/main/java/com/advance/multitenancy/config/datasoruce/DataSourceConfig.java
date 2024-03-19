@@ -124,8 +124,9 @@ public class DataSourceConfig {
         config.setUsername(username);
         config.setPassword(password);
         config.setMaximumPoolSize(hikariProperties.getMaximumPoolSize());
-        config.setMaxLifetime(hikariProperties.getMaxLifetime());
         config.setConnectionTimeout(hikariProperties.getConnectionTimeout());
+        config.setIdleTimeout(hikariProperties.getIdleTimeout());
+        config.setMinimumIdle(hikariProperties.getMinimumIdle());
 
         return new HikariDataSource(config);
     }

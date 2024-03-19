@@ -12,12 +12,14 @@ public class HikariProperties {
 
     private final int maximumPoolSize;
     private final int connectionTimeout;
-    private final int maxLifetime;
+    private final int idleTimeout;
+    private final int minimumIdle;
 
-    public HikariProperties(int maximumPoolSize, int connectionTimeout, int maxLifetime) {
+    public HikariProperties(int maximumPoolSize, int connectionTimeout, int idleTimeout, int minimumIdle) {
         this.maximumPoolSize = maximumPoolSize;
         this.connectionTimeout = connectionTimeout;
-        this.maxLifetime = maxLifetime;
+        this.idleTimeout = idleTimeout;
+        this.minimumIdle = minimumIdle;
     }
 
 }
