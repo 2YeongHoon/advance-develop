@@ -17,13 +17,12 @@ public class Aes256Utils {
     private static final String AES_ALGORITHM = "AES";
     private static final String PADDING_ALGORITHM = "AES/CBC/PKCS5Padding";
     private static final int GCM_IV_LENGTH = 16;
-    private final CryptoProperties cryptoProperties;
+    private final CryptoProperties properties;
 
-    public String encrypt(String text, String key) {
+    public String encrypt(String text) {
         try {
-            cryptoProperties.getKey();
             byte[] encrypted =
-                    getChipher(Cipher.ENCRYPT_MODE, key).doFinal(text.getBytes(StandardCharsets.UTF_8.name()));
+                    getChipher(Cipher.ENCRYPT_MODE, properties.getKey()).doFinal(text.getBytes(StandardCharsets.UTF_8.name()));
             return Base64.getEncoder().encodeToString(encrypted);
         }catch (Exception e){
             throw new BaseRuntimeException("암호화 처리중 예외가 발생했습니다.");
@@ -33,7 +32,7 @@ public class Aes256Utils {
     public String decrypt(String cipherText) {
         try {
             byte[] decodedBytes = Base64.getDecoder().decode(cipherText);
-            byte[] decrypted = getChipher(Cipher.DECRYPT_MODE, cryptoProperties.getKey()).doFinal(decodedBytes);
+            byte[] decrypted = getChipher(Cipher.DECRYPT_MODE, properties.getKey()).doFinal(decodedBytes);
             return new String(decrypted, StandardCharsets.UTF_8.name());
         } catch (Exception e) {
             throw new BaseRuntimeException("암호화 처리중 예외가 발생했습니다.");
