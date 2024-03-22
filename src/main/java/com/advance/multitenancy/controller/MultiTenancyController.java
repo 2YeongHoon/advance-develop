@@ -1,6 +1,5 @@
 package com.advance.multitenancy.controller;
 
-import com.advance.multitenancy.repository.TestRepository;
 import com.advance.multitenancy.service.TestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
