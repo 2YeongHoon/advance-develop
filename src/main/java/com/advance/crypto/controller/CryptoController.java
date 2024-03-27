@@ -16,18 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/crypto")
 public class CryptoController {
 
-    private final Aes256Utils aes256Utils;
-
     @PostMapping
     public ResponseEntity<CryptoResponse> getDecrypt(@RequestBody CryptoRequest request) {
-        DecryptRequestDto dto = decrypt(request);
-        CryptoResponse response = new CryptoResponse(dto.name());
+        CryptoResponse response = new CryptoResponse(request.getName());
 
         return ResponseEntity.ok(response);
-    }
-
-    private DecryptRequestDto decrypt(CryptoRequest request) {
-        return new DecryptRequestDto(aes256Utils.decrypt(request.name()));
     }
 
 }

@@ -1,5 +1,12 @@
 package com.advance.crypto.controller.dto;
 
-public record CryptoRequest (String name) {
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class CryptoRequest {
+
+  private String name;
 
 }
