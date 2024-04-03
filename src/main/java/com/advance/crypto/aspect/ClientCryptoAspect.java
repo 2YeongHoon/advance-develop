@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Aspect
 @RequiredArgsConstructor
-public class AspectV1 {
+public class ClientCryptoAspect {
 
   private final Aes256Utils aes256Utils;
 
@@ -21,8 +21,8 @@ public class AspectV1 {
   @Before("execution(* com.advance.crypto.controller..*(..))")
   public void doLog(JoinPoint joinPoint) throws Throwable {
     Object[] objs = joinPoint.getArgs();
-    for(Object obj : objs){
-      if(obj instanceof CryptoRequest){
+    for (Object obj : objs) {
+      if (obj instanceof CryptoRequest) {
         CryptoRequest request = CryptoRequest.class.cast(obj);
         String name = decrypt(request.getName());
         request.setName(name);
