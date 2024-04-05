@@ -2,6 +2,7 @@ package com.advance.crypto.utils;
 
 import com.advance.common.exception.BaseRuntimeException;
 import com.advance.crypto.config.properties.CryptoProperties;
+import com.advance.crypto.enums.CryptoMode;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import javax.crypto.Cipher;
@@ -19,20 +20,20 @@ public class Aes256Utils {
     private static final int GCM_IV_LENGTH = 16;
     private final CryptoProperties properties;
 
-    public String encrypt(String text) {
+    public String encrypt(CryptoMode mode, String text) {
         try {
             byte[] encrypted =
-                    getChipher(Cipher.ENCRYPT_MODE, properties.getKey()).doFinal(text.getBytes(StandardCharsets.UTF_8.name()));
+                    getChipher(Cipher.ENCRYPT_MODE, properties.getKey(mode)).doFinal(text.getBytes(StandardCharsets.UTF_8.name()));
             return Base64.getEncoder().encodeToString(encrypted);
         }catch (Exception e){
             throw new BaseRuntimeException("암호화 처리중 예외가 발생했습니다.");
         }
     }
 
-    public String decrypt(String cipherText) {
+    public String decrypt(CryptoMode mode, String cipherText) {
         try {
             byte[] decodedBytes = Base64.getDecoder().decode(cipherText);
-            byte[] decrypted = getChipher(Cipher.DECRYPT_MODE, properties.getKey()).doFinal(decodedBytes);
+            byte[] decrypted = getChipher(Cipher.DECRYPT_MODE, properties.getKey(mode)).doFinal(decodedBytes);
             return new String(decrypted, StandardCharsets.UTF_8.name());
         } catch (Exception e) {
             throw new BaseRuntimeException("암호화 처리중 예외가 발생했습니다.");

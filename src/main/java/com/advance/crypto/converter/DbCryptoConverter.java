@@ -1,5 +1,6 @@
 package com.advance.crypto.converter;
 
+import com.advance.crypto.enums.CryptoMode;
 import com.advance.crypto.utils.Aes256Utils;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Convert;
@@ -19,11 +20,11 @@ public class DbCryptoConverter implements AttributeConverter<String, String> {
 
     @Override
     public String convertToDatabaseColumn(String attribute) {
-        return aes256Utils.encrypt(attribute);
+        return aes256Utils.encrypt(CryptoMode.DB, attribute);
     }
 
     @Override
     public String convertToEntityAttribute(String dbData) {
-        return aes256Utils.decrypt(dbData);
+        return aes256Utils.decrypt(CryptoMode.DB, dbData);
     }
 }
