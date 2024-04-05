@@ -1,5 +1,6 @@
 package com.advance.crypto.config.properties;
 
+import com.advance.crypto.enums.CryptoMode;
 import lombok.Getter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -10,10 +11,16 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "spring.encrypt")
 public class CryptoProperties {
 
-    private final String key;
+    private final String dbKey;
+    private final String clientKey;
 
-    public CryptoProperties(String key) {
-        this.key = key;
+    public CryptoProperties(String dbKey, String clientKey) {
+        this.dbKey = dbKey;
+        this.clientKey = clientKey;
+    }
+
+    public String getKey(CryptoMode mode) {
+        return CryptoMode.DB.equals(mode) ? dbKey : clientKey;
     }
 
 }
