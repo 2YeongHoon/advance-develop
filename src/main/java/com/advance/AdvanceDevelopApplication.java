@@ -1,4 +1,4 @@
-package com.advance.advancedevelop;
+package com.advance;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
