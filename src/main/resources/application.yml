@@ -42,3 +42,12 @@ custom:
     connection-timeout: 30000
     # ms
     idle-timeout: 600000
+
+# actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh
+
+test: "123"
