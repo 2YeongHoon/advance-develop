@@ -1,4 +1,4 @@
-package com.advance.externalinjection;
+package com.advance.externalinjection.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -14,11 +14,4 @@ public class ExternalInjectionBean {
         this.color = color;
     }
 
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
 }
