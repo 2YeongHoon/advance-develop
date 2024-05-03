@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="https://thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${name}"> 님 안녕하세요.</title>
+</head>
+
+<body>
+    <span>
+        테스트 메일입니다.
+        <br/>
+        성함: <span th:text="${name}"></span>
+        <br/>
+        휴대폰번호: <span th:text="${mobile}"></span>
+        <br/>
+        주소: <span th:text="${address}"></span>
+        <br/>
+    </span>
+</body>
+
+</html>
