@@ -9,7 +9,7 @@ public enum TemplateType {
     MAIL_TEMPLATE {
         @Override
         public String fileName() {
-            return "mail_template.html";
+            return "test_mail_template.html";
         }
     };
 
