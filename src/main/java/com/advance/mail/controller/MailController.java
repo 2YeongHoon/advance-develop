@@ -2,6 +2,7 @@ package com.advance.mail.controller;
 
 
 import com.advance.mail.service.MailService;
+import com.advance.mail.service.dto.MailDto;
 import java.io.IOException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
@@ -26,9 +27,9 @@ public class MailController {
         // 참조하지 못하게 되어 NoSuchFileException이 발생.
         // 따라서 InputStreamSource 객체로 변환
         InputStreamSource source = new ByteArrayResource(file.getBytes());
-        mailService.send(source);
+        String[] receiver = {"djaakclsrn12@naver.com"};
+        mailService.send(MailDto.makeTest(receiver, source));
         return ResponseEntity.ok().build();
     }
-
 
 }
