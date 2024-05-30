@@ -16,13 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/ai")
 public class AiController {
 
-  private final OllamaService ollamaService;
+    private final OllamaService ollamaService;
 
-  @PostMapping
-  public ResponseEntity<AiResponse> getDecrypt(@RequestBody AiRequest request) {
-    ChatResponse chatRes = ollamaService.test(request);
-    AiResponse res = new AiResponse(chatRes.message());
-    return ResponseEntity.ok(new AiResponse(res.answer()));
-  }
+    @PostMapping
+    public ResponseEntity<AiResponse> getDecrypt(@RequestBody AiRequest request) {
+        ChatResponse chatRes = ollamaService.sendSync(request);
+        return ResponseEntity.ok(new AiResponse(chatRes.message().content()));
+    }
 
 }
