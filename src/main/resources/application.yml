@@ -50,7 +50,17 @@ spring:
           socketFactory:
             port: 465
             class: javax.net.ssl.SSLSocketFactory
-
+  rabbitmq:
+    # deserialize 오류 방지
+    listener:
+      simple:
+        message-converter:
+          allowed-classes:
+            - com.advance.mail.service.dto.MqMailDto
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
 ####################################################################################
 #                                      CUSTOM                                      #
 ####################################################################################
