@@ -1,48 +1,44 @@
-package com.advance.mail.service;
+package com.advance.mail.infrastructure;
 
 import com.advance.mail.enums.TemplateType;
 import com.advance.mail.service.dto.MailDto;
+import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 
 
-@Service
+@Component
 @RequiredArgsConstructor
-public class TestMailService implements MailService {
+public class AsyncTestMailService {
 
-    private final JavaMailSender javaMailSender;
-    private final SpringTemplateEngine templateEngine;
+    private final SpringTemplateEngine engin;
+    private final JavaMailSender sender;
 
     @Async
-    @Override
-    public void send(MailDto dto) {
+    public void makeMassage(MailDto dto) throws MessagingException {
+        MimeMessage message = sender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true, StandardCharsets.UTF_8.name());
 
-        try {
-            MimeMessage message = javaMailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, true, StandardCharsets.UTF_8.name());
+        helper.setSubject("메일 전송 테스트");
+        helper.setTo(dto.getReceivers());
+        helper.setText(innerHtml(), true);
+        helper.addAttachment("테스트 파일", new ByteArrayResource(dto.getFile()));
 
-            helper.setSubject("메일 전송 테스트");
-            helper.setTo(dto.getReceivers());
-            helper.setText(innerHtml(), true);
-            helper.addAttachment("테스트 파일", dto.getFile());
-            javaMailSender.send(message);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        sender.send(message);
     }
 
     private String innerHtml() {
-        return this.templateEngine.process(TemplateType.MAIL_TEMPLATE.fileName(), context());
+        return this.engin.process(TemplateType.MAIL_TEMPLATE.fileName(), context());
     }
 
     private Context context() {
