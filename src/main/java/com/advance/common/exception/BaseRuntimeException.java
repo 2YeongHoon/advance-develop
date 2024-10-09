@@ -26,5 +26,12 @@ public class BaseRuntimeException extends RuntimeException{
         this.errorMessage = errors.getMessage();
         this.errorStatus = httpStatus.value();
     }
+    public BaseRuntimeException(Errors errors) {
+        super(errors.getMessage());
+
+        this.errorCode = errors.getCode();
+        this.errorMessage = errors.getMessage();
+        this.errorStatus = DEFAULT_HTTP_STATUS.value();
+    }
 
 }

@@ -34,10 +34,12 @@ dependencies {
 
     implementation 'org.springframework.ai:spring-ai-ollama-spring-boot-starter'
     // ai
-    implementation platform("org.springframework.ai:spring-ai-bom:0.8.1-SNAPSHOT")
-
+    implementation platform("org.springframework.ai:spring-ai-bom:1.0.0-SNAPSHOT")
     // ollama
     implementation 'org.springframework.ai:spring-ai-ollama'
+
+    // RabbitMQ
+    implementation 'org.springframework.boot:spring-boot-starter-amqp'
 
     // thymeleaf
     implementation 'org.thymeleaf:thymeleaf-spring6:3.1.2.RELEASE'
