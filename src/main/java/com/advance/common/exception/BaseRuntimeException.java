@@ -12,6 +12,14 @@ public class BaseRuntimeException extends RuntimeException{
     private final String errorMessage;
     private final int errorStatus;
 
+    public BaseRuntimeException(String message, Throwable cause) {
+        super(message, cause);
+
+        this.errorCode = DEFAULT_ERROR.getCode();
+        this.errorMessage = DEFAULT_ERROR.getMessage();
+        this.errorStatus = DEFAULT_HTTP_STATUS.value();
+    }
+
     public BaseRuntimeException(String message) {
         super(message);
 

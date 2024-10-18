@@ -17,11 +17,8 @@ public class UserManagementService {
         final String name = request.name();
         final String age = request.age();
 
-        userService.findByNameAndAge(name, age)
-            .ifPresentOrElse(
-                user -> {},
-                () -> userService.save(User.of(name, age))
-            );
+        userService.findByNameAndAgeThrowIfExist(name, age);
+        userService.save(User.of(name, age));
     }
 
     // TODO: 분산락 구현
