@@ -22,8 +22,13 @@ public class UserManagementService {
     }
 
     // TODO: 분산락 구현
-    public void redisSave(){
+    public void redisSave(CreateUserRequest request){
+        final String name = request.name();
+        final String age = request.age();
 
+        redisService.saveUser(name, age);
+        userService.findByNameAndAgeThrowIfExist(name, age);
+        userService.save(User.of(name, age));
     }
 
 }

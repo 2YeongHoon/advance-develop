@@ -12,6 +12,10 @@ public class RedisService {
 
     private final StringRedisTemplate template;
 
+    public void findUser(String userId, String data) {
+
+    }
+
     public void saveUser(String userId, String data) {
         template.opsForValue().set(
             addPrefix(RedisKeyType.USER, userId),
