@@ -18,5 +18,4 @@ public class RedissonConfig {
         return Redisson.create(config);
     }
 
-
 }
