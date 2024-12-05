@@ -7,13 +7,22 @@ import java.lang.annotation.*;
 @Documented
 public @interface RedissonLock {
 
-    // Lock의 이름 (고유값)
+    /**
+     * 락의 이름
+     */
     String value();
 
-    // Lock획득을 시도하는 최대 시간 (ms)
+    /**
+     * 락을 기다리는 시간 (default - 5s)
+     * 락 획득을 위해 waitTime 만큼 대기한다
+     */
     long waitTime() default 5000L;
 
-    // 락을 획득한 후, 점유하는 최대 시간 (ms)
+
+    /**
+     * 락 임대 시간 (default - 3s)
+     * 락을 획득한 이후 leaseTime 이 지나면 락을 해제한다
+     */
     long leaseTime() default 2000L;
 
 }
