@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class OllamaService {
 
-    // TODO: llamaModle로 전환하기.
     private static final String CONTENT = "한글로 대답해";
     private static final String OLLAMA_API = "http://localhost:11434";
     private static final String OLLAMA_VER = "llama3";
@@ -24,17 +23,16 @@ public class OllamaService {
         OllamaApi ollamaApi =
             new OllamaApi(OLLAMA_API);
 
-        // Sync request
         var request = ChatRequest.builder(OLLAMA_VER)
-            .withStream(false)
-            .withMessages(List.of(
+            .stream(false)
+            .messages(List.of(
                 Message.builder(Role.SYSTEM)
-                    .withContent(CONTENT)
+                    .content(CONTENT)
                     .build(),
                 Message.builder(Role.USER)
-                    .withContent(req.prom())
+                    .content(req.prom())
                     .build()))
-            .withOptions(OllamaOptions.create().withTemperature(0.9))
+            .options(OllamaOptions.builder().temperature(0.9).build())
             .build();
 
         return ollamaApi.chat(request);
