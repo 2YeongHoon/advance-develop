@@ -31,8 +31,9 @@ Redis
 ```
 # 명령어
 ```
+Ollama
+ - 실행: ollama run llama3
 Redis 
- - docker redis-cli 접속: docker exec -it "컨테이너이름" redis-cli
  - 전체 키 조회: keys *
  - 값 조회: get "key"
  - ttl 조회: ttl "key"
