@@ -2,6 +2,9 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.2.3'
     id 'io.spring.dependency-management' version '1.1.4'
+
+    id 'org.jetbrains.kotlin.jvm' version '1.9.21'
+    id 'org.jetbrains.kotlin.plugin.spring' version '1.9.21'
 }
 
 group = 'com.advance'
@@ -65,8 +68,19 @@ dependencies {
     testCompileOnly 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'
 
+
+    // kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    implementation "org.jetbrains.kotlin:kotlin-reflect"
+
 }
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+    kotlinOptions {
+        jvmTarget = "17"
+    }
 }
